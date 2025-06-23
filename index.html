@@ -2,255 +2,215 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>JinnyLab Attendance - 출석 확인 자동화</title>
+    <title>JinnyLab Attendance</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --primary: #7c3aed;
-        --primary-dark: #5b21b6;
-        --text-color: #1f2937;
-        --bg-color: #f9fafb;
-        --card-bg: #ffffff;
-        --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-        --border-color: #e5e7eb;
+        --bg-start: #f5f7fa;
+        --bg-end: #e2e8f0;
+        --glass-bg: rgba(255, 255, 255, 0.3);
+        --glass-border: rgba(255, 255, 255, 0.4);
+        --text-main: #1e2937;
+        --text-sub: #475569;
+        --accent-nav: #334155;
+        --accent-lav: #374151
+        --accent-btn: #64748b;
+        --card-bg: rgba(255, 255, 255, 0.6);
+        --btn-hover: #556b78;
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; }
 
       body {
-        margin: 0;
-        padding: 40px 20px;
-        font-family: 'Pretendard', 'Segoe UI', 'Noto Sans KR', sans-serif;
-        background-color: var(--bg-color);
-        color: var(--text-color);
+        background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+        display: flex; justify-content: center; align-items: center;
+        min-height: 100vh; color: var(--text-main);
       }
 
       .container {
-        max-width: 720px;
-        margin: auto;
+        width: 100%; max-width: 720px;
+        background: var(--glass-bg);
+        border-radius: 20px;
+        padding: 40px;
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         position: relative;
       }
 
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 48px;
+      .logo {
+        text-align: center;
+        margin-bottom: 24px;
       }
-
-      .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
+      .logo svg { width: 160px; height: auto; }
 
       h1 {
-        font-size: 28px;
-        font-weight: 700;
-        color: var(--primary);
-        margin-bottom: 8px;
-        margin-top: 48px;
+        font-size: 28px; font-weight: 700;
+        color: var(--accent-nav); margin-bottom: 8px;
+        text-align: center;
       }
 
       .subtitle {
-        color: #6b7280;
-        font-size: 15px;
-        margin-bottom: 24px;
+        font-size: 16px; color: var(--text-sub);
+        margin-bottom: 32px; text-align: center;
       }
 
       h3 {
-        margin-top: 40px;
-        font-size: 18px;
-        font-weight: 600;
-        color: #374151;
+        font-size: 18px; font-weight: 600;
+        color: var(--accent-nav); margin-top: 32px;
       }
 
-      textarea,
-      input[type='file'] {
+      textarea, input[type='file'] {
         width: 100%;
-        margin-top: 12px;
+        padding: 14px;
+        margin-top: 10px;
         font-size: 15px;
+        border: none;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.7);
       }
 
-      textarea {
-        height: 130px;
-        padding: 16px;
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        background-color: white;
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
-        resize: vertical;
+      input[type='file']::file-selector-button {
+        background: var(--text-sub);
+        border: none; color: var(--bg-end);
+        padding: 8px 14px; border-radius: 8px;
+        cursor: pointer; font-weight: 600;
+        font-weight: 400;
       }
 
-      input[type='file'] {
-        padding: 10px;
-        background-color: white;
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        cursor: pointer;
-        transition: border-color 0.2s ease;
-      }
-
-      input[type='file']:hover {
-        border-color: var(--primary);
-      }
-
-      button {
+      .btn-primary {
+        display: block;
+        width: 100%; text-align: center;
+        padding: 14px 0;
         margin-top: 24px;
-        padding: 12px 28px;
-        background: var(--primary);
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.1s ease;
+        font-size:16px; font-weight:400;
+        color: #fff; background: var(--accent-btn);
+        border:none; border-radius: 12px;
+        background-color: #1e2937;
+        cursor:pointer; transition: background 0.3s;
       }
-
-      button:hover {
-        background: var(--primary-dark);
-        transform: translateY(-1px);
-      }
-
-      .copy-button {
-        margin-top: 12px;
-        background-color: #e5e7eb;
-        color: #111827;
-        font-size: 14px;
-        padding: 8px 20px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-      }
+      .btn-primary:hover { background: var(--btn-hover); }
 
       .result-section {
-        margin-top: 40px;
-        background-color: var(--card-bg);
+        margin-top: 32px;
+        background: var(--card-bg);
         border-radius: 16px;
         padding: 24px;
-        box-shadow: var(--card-shadow);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        border: 1px solid var(--glass-border);
       }
-
       .result-section h3 {
-        margin-bottom: 16px;
-        font-size: 17px;
+        font-size: 17px; font-weight:600;
+        color: var(--accent-nav);
+        margin-bottom:12px;
+      }
+      ul { padding-left:20px; margin:0; }
+      li { font-size:14px; margin-bottom:6px; color:var(--text-main); }
+
+      .copy-button {
+        background: transparent;
+        border: 1px solid var(--accent-btn);
+        color: var(--text-sub);
+        padding: 10px 20px;
+        border-radius: 8px;
         font-weight: 600;
-        color: #111827;
+        cursor:pointer;
+        transition: background 0.3s, color 0.3s;
+        margin-top:12px;
       }
-
-      ul {
-        padding-left: 20px;
-        margin: 0;
-      }
-
-      li {
-        margin-bottom: 6px;
-        font-size: 14px;
-        color: #374151;
+      .copy-button:hover {
+        background: var(--accent-btn);
+        color: #3b3737;
       }
 
       footer {
-        margin-top: 80px;
-        text-align: center;
-        font-size: 12px;
-        color: #9ca3af;
+        margin-top:40px;
+        text-align:center;
+        color: var(--text-sub);
+        font-size:13px;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <header>
-        <h1>📋 카카오톡 톡방 입장 확인 자동 프로그램</h1>
-        <div class="logo-container">
-          <svg width="160" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="8" fill="#8B5CF6" />
-            <text x="8" y="27" font-family="Verdana" font-size="20" font-weight="bold" fill="white">J</text>
-            <text x="50" y="27" font-family="Verdana" font-size="20" font-weight="bold" fill="#333">Jinny</text>
-            <text x="115" y="27" font-family="Verdana" font-size="20" font-weight="bold" fill="#8B5CF6">Lab</text>
-          </svg>
-        </div>
-      </header>
+      <div class="logo">
+        <svg viewBox="0 0 180 40" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="8" fill="var(--accent-nav)" />
+          <text x="8" y="27" font-size="20" font-weight="bold" fill="#fff">J</text>
+          <text x="50" y="27" font-size="20" font-weight="700" fill="var(--accent-nav)">inny</text>
+          <text x="110" y="27" font-size="20" font-weight="700" fill="var(--accent-lav)">Lab</text>
+        </svg>
+      </div>
 
-      <p class="subtitle">수강생 출석 확인, 클릭 한 번으로 끝내세요.</p>
+      <h1>카카오톡 톡방 입장 확인 자동 프로그램</h1>
+      <p class="subtitle">수강생 입장 체크, 클릭 한 번으로 완성하세요.</p>
 
-      <h3>1. 카카오톡 .csv 파일 업로드</h3>
+      <h3>1. 카톡 .csv 업로드</h3>
       <input type="file" id="csvFile" accept=".csv" />
 
       <h3>2. 수강생 명단 입력</h3>
-      <textarea id="studentList" placeholder="한 줄에 한 명씩 입력해 주세요."></textarea>
+      <textarea id="studentList" placeholder="시트에 있는 명단을 복사해서 그대로 들고오시면 됩니다. (한 줄에 한 명씩)"></textarea>
 
-      <button onclick="processAttendance()">출석 확인하기</button>
+      <button class="btn-primary" onclick="processAttendance()">입장 확인하기</button>
 
       <div class="result-section">
-        <h3>✅ 출석자 (<span id="presentCount">0</span>명)</h3>
+        <h3>출석자 (<span id="presentCount">0</span>명)</h3>
         <ul id="presentList"></ul>
-        <button class="copy-button" onclick="copyToClipboard('presentList')">출석자 복사</button>
+        <button class="copy-button" onclick="copyToClipboard('presentList')">복사하기</button>
       </div>
 
       <div class="result-section">
-        <h3>❌ 미출석자 (<span id="absentCount">0</span>명)</h3>
+        <h3>미출석자 (<span id="absentCount">0</span>명)</h3>
         <ul id="absentList"></ul>
-        <button class="copy-button" onclick="copyToClipboard('absentList')">미출석자 복사</button>
+        <button class="copy-button" onclick="copyToClipboard('absentList')">복사하기</button>
       </div>
 
       <div class="result-section">
-        <h3>❓ 명단 외 참여자 (<span id="extraCount">0</span>명)</h3>
+        <h3>명단 외 참여자 (<span id="extraCount">0</span>명)</h3>
         <ul id="extraList"></ul>
-        <button class="copy-button" onclick="copyToClipboard('extraList')">명단 외 참여자 복사</button>
+        <button class="copy-button" onclick="copyToClipboard('extraList')">복사하기</button>
       </div>
 
-      <footer>© 2025 JinnyLab. All rights reserved.</footer>
+      <footer>© 2025 JinnyLab. All rights reserved.</footer>
     </div>
 
     <script type="module">
       import Papa from 'https://cdn.jsdelivr.net/npm/papaparse@5.4.1/+esm';
 
-      window.processAttendance = function () {
+      window.processAttendance = () => {
         const file = document.getElementById('csvFile').files[0];
-        const studentRaw = document.getElementById('studentList').value.trim();
-        if (!file || !studentRaw) {
-          alert('CSV 파일과 수강생 명단을 모두 입력해주세요.');
+        const raw = document.getElementById('studentList').value.trim();
+        if (!file || !raw) {
+          alert('CSV 파일과 명단을 모두 입력해주세요.');
           return;
         }
 
-        const studentList = studentRaw.split('\n').map((name) => name.trim());
-
+        const list = raw.split('\n').map((n) => n.trim());
         Papa.parse(file, {
           header: true,
-          complete: function (results) {
-            const rows = results.data;
-            const joinedPeople = rows
-              .filter((row) => row['Message']?.includes('들어왔습니다'))
-              .map((row) => row['User'])
-              .filter(Boolean);
-
-            const uniqueJoined = [...new Set(joinedPeople)];
-
-            const present = studentList.filter((s) => uniqueJoined.includes(s));
-            const absent = studentList.filter((s) => !uniqueJoined.includes(s));
-            const extra = uniqueJoined.filter((u) => !studentList.includes(u));
+          complete: (res) => {
+            const joined = [...new Set(res.data.filter((r) => r.Message?.includes('들어왔습니다')).map((r) => r.User))];
+            const present = list.filter((n) => joined.includes(n));
+            const absent = list.filter((n) => !joined.includes(n));
+            const extra = joined.filter((n) => !list.includes(n));
 
             document.getElementById('presentCount').textContent = present.length;
             document.getElementById('absentCount').textContent = absent.length;
             document.getElementById('extraCount').textContent = extra.length;
 
-            document.getElementById('presentList').innerHTML = present.map((name) => `<li>${name}</li>`).join('');
-            document.getElementById('absentList').innerHTML = absent.map((name) => `<li>${name}</li>`).join('');
-            document.getElementById('extraList').innerHTML = extra.map((name) => `<li>${name}</li>`).join('');
+            document.getElementById('presentList').innerHTML = present.map((n) => `<li>${n}</li>`).join('');
+            document.getElementById('absentList').innerHTML = absent.map((n) => `<li>${n}</li>`).join('');
+            document.getElementById('extraList').innerHTML = extra.map((n) => `<li>${n}</li>`).join('');
           },
         });
       };
 
-      window.copyToClipboard = function (listId) {
-        const list = document.getElementById(listId);
-        const names = Array.from(list.querySelectorAll('li')).map((li) => li.textContent).join('\n');
-        navigator.clipboard.writeText(names).then(() => {
-          alert('복사되었습니다!');
-        });
+      window.copyToClipboard = (id) => {
+        const names = Array.from(document.getElementById(id).children)
+          .map((li) => li.textContent)
+          .join('\n');
+        navigator.clipboard.writeText(names).then(() => alert('복사되었습니다!'));
       };
     </script>
   </body>
