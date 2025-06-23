@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>JinnyLab Attendance</title>
+    <meta http-equiv="refresh" content="0; url=auth.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
@@ -150,7 +151,10 @@
       <input type="file" id="csvFile" accept=".csv" />
 
       <h3>2. 수강생 명단 입력</h3>
-      <textarea id="studentList" placeholder="시트에 있는 명단을 복사해서 그대로 들고오시면 됩니다. (한 줄에 한 명씩)"></textarea>
+      <textarea
+        id="studentList"
+        placeholder="시트에 있는 명단을 복사해서 그대로 들고오시면 됩니다. (한 줄에 한 명씩)"
+      ></textarea>
 
       <button class="btn-primary" onclick="processAttendance()">입장 확인하기</button>
 
