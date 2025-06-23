@@ -19,5 +19,5 @@ window.login = async function () {
 
   // 로그인 성공
   localStorage.setItem('accessToken', data.session.access_token);
-  window.location.href = 'index.html'; // 출석 확인기 페이지로 이동
+  window.location.href = 'main.html'; // 출석 확인기 페이지로 이동
 };
