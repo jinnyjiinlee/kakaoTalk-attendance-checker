@@ -186,9 +186,9 @@
       } = await supabase.auth.getSession();
       if (!session) {
         // 로그인 안 된 상태면 auth.html로 이동
-        window.location.href = 'auth.html';
+        window.location.href = 'index.html';
       }
-      
+
       import Papa from 'https://cdn.jsdelivr.net/npm/papaparse@5.4.1/+esm';
 
       window.processAttendance = () => {
